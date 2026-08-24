@@ -3,13 +3,14 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="description" content="Gyoomin Kim — Robotics and Autonomous Systems Engineer. ROS2, Navigation, Localization, Terrain-aware Planning, and Legged Robot Integration." />
+  <meta name="description" content="Gyoomin Kim — Robotics and Autonomous Systems Engineer focused on localization, navigation, terrain-aware planning, and real-robot integration." />
   <meta name="theme-color" content="#070b0d" />
   <title>Gyoomin Kim · Robotics & Autonomous Systems</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="styles.css" />
+  <link rel="stylesheet" href="v2.css" />
 </head>
 <body>
   <canvas id="pointcloud" aria-hidden="true"></canvas>
@@ -18,7 +19,7 @@
   <header class="site-header">
     <a class="brand" href="#top" aria-label="Home">GK<span class="brand-dot">.</span></a>
     <nav class="nav" aria-label="Primary navigation">
-      <a href="#work">Work</a>
+      <a href="#projects">Projects</a>
       <a href="#system">System</a>
       <a href="#about">About</a>
       <a href="https://github.com/Kimgyoomin" target="_blank" rel="noreferrer">GitHub ↗</a>
@@ -27,152 +28,103 @@
   </header>
 
   <main id="top">
-    <section class="hero section-shell">
+    <section class="hero section-shell hero-v2">
       <div class="hero-copy reveal">
         <p class="eyebrow" data-en="ROBOTICS · AUTONOMOUS SYSTEMS" data-ko="로보틱스 · 자율 시스템">ROBOTICS · AUTONOMOUS SYSTEMS</p>
-        <h1>
-          <span data-en="From LiDAR" data-ko="LiDAR에서">From LiDAR</span><br />
-          <span class="accent-text" data-en="to Locomotion." data-ko="Locomotion까지.">to Locomotion.</span>
-        </h1>
-        <p class="hero-lead" data-en="I build autonomous navigation systems for legged robots — from localization and terrain understanding to global planning and low-level command integration." data-ko="Legged robot을 위한 자율주행 시스템을 만듭니다. Localization과 지형 이해부터 Global Planning, Low-level command 연동까지 하나의 시스템으로 연결합니다.">I build autonomous navigation systems for legged robots — from localization and terrain understanding to global planning and low-level command integration.</p>
+        <h1><span data-en="Robots that" data-ko="현장에서">Robots that</span><br><span class="accent-text" data-en="know where to go." data-ko="길을 아는 로봇.">know where to go.</span></h1>
+        <p class="hero-lead" data-en="I work on autonomous navigation for legged robots in manufacturing environments — localization, terrain understanding, global planning, navigation, and real-robot integration." data-ko="제조 환경의 Legged Robot 자율주행을 연구합니다. Localization, 지형 이해, Global Planning, Navigation, 그리고 실제 로봇 시스템 통합까지 다룹니다.">I work on autonomous navigation for legged robots in manufacturing environments — localization, terrain understanding, global planning, navigation, and real-robot integration.</p>
         <div class="hero-actions">
-          <a class="btn btn-primary" href="#work" data-en="Explore Projects" data-ko="프로젝트 보기">Explore Projects</a>
+          <a class="btn btn-primary" href="#projects" data-en="View Projects" data-ko="프로젝트 보기">View Projects</a>
           <a class="btn btn-ghost" href="https://github.com/Kimgyoomin" target="_blank" rel="noreferrer">GitHub ↗</a>
         </div>
-        <div class="status-line">
-          <span class="status-dot"></span>
-          <span data-en="M.S. Graduate · Kookmin University RC Lab · OPIc AL" data-ko="석사 졸업 · 국민대학교 RC Lab · OPIc AL">M.S. Graduate · Kookmin University RC Lab · OPIc AL</span>
-        </div>
+        <div class="status-line"><span class="status-dot"></span><span data-en="M.S. · Kookmin University RC Lab · OPIc AL" data-ko="석사 · 국민대학교 RC Lab · OPIc AL">M.S. · Kookmin University RC Lab · OPIc AL</span></div>
       </div>
 
-      <div class="hero-viz reveal delay-1" aria-label="Autonomous navigation pipeline visualization">
+      <div class="hero-viz reveal delay-1" aria-label="Autonomous robot navigation visualization">
         <div class="viz-grid"></div>
-        <svg class="route-svg" viewBox="0 0 600 430" role="img" aria-label="Terrain-aware navigation route">
+        <svg class="route-svg" viewBox="0 0 600 430" role="img" aria-label="Robot navigation route">
           <path class="route-shadow" d="M55 338 C130 282, 152 362, 222 310 S340 192, 420 222 S500 156, 556 92" />
           <path class="route" d="M55 338 C130 282, 152 362, 222 310 S340 192, 420 222 S500 156, 556 92" />
           <circle class="route-start" cx="55" cy="338" r="8" />
           <circle class="route-goal" cx="556" cy="92" r="9" />
         </svg>
-        <div class="robot-chip">
-          <span class="robot-icon">◆</span>
-          <span>RUBI</span>
-        </div>
-        <div class="telemetry telemetry-a"><span>LOCALIZATION</span><strong>FAST-LIO</strong></div>
-        <div class="telemetry telemetry-b"><span>TERRAIN</span><strong>2.5D / PCA</strong></div>
-        <div class="telemetry telemetry-c"><span>PLANNER</span><strong>WAVE + A*</strong></div>
+        <div class="robot-chip"><span class="robot-icon">◆</span><span>RUBI</span></div>
+        <div class="telemetry telemetry-a"><span>CAPABILITY</span><strong>LOCALIZATION</strong></div>
+        <div class="telemetry telemetry-b"><span>CAPABILITY</span><strong>NAVIGATION</strong></div>
+        <div class="telemetry telemetry-c"><span>CAPABILITY</span><strong>TERRAIN PLANNING</strong></div>
       </div>
     </section>
 
-    <section class="stack-strip" aria-label="Core technology stack">
-      <div class="marquee">
-        <div class="marquee-track">
-          <span>ROS 2 HUMBLE</span><i>·</i><span>C++</span><i>·</i><span>NAV2</span><i>·</i><span>FAST-LIO</span><i>·</i><span>LIVOX</span><i>·</i><span>HEIGHT MAP</span><i>·</i><span>A*</span><i>·</i><span>RRT*</span><i>·</i><span>LCM</span><i>·</i>
-          <span>ROS 2 HUMBLE</span><i>·</i><span>C++</span><i>·</i><span>NAV2</span><i>·</i><span>FAST-LIO</span><i>·</i><span>LIVOX</span><i>·</i><span>HEIGHT MAP</span><i>·</i><span>A*</span><i>·</i><span>RRT*</span><i>·</i><span>LCM</span><i>·</i>
-        </div>
-      </div>
+    <section class="stack-strip" aria-label="Robotics capability areas">
+      <div class="marquee"><div class="marquee-track">
+        <span>LOCALIZATION</span><i>·</i><span>NAVIGATION</span><i>·</i><span>TERRAIN UNDERSTANDING</span><i>·</i><span>GLOBAL PLANNING</span><i>·</i><span>ROBOT INTEGRATION</span><i>·</i>
+        <span>LOCALIZATION</span><i>·</i><span>NAVIGATION</span><i>·</i><span>TERRAIN UNDERSTANDING</span><i>·</i><span>GLOBAL PLANNING</span><i>·</i><span>ROBOT INTEGRATION</span><i>·</i>
+      </div></div>
     </section>
 
-    <section id="work" class="section-shell work-section">
+    <section id="projects" class="section-shell work-section">
       <div class="section-heading reveal">
-        <p class="eyebrow" data-en="SELECTED WORK" data-ko="주요 프로젝트">SELECTED WORK</p>
-        <h2 data-en="Robotics systems, not isolated demos." data-ko="단일 데모가 아닌, 연결된 로봇 시스템.">Robotics systems, not isolated demos.</h2>
+        <p class="eyebrow" data-en="PROJECTS" data-ko="프로젝트">PROJECTS</p>
+        <h2 data-en="Show the robot first. Explain the algorithm second." data-ko="먼저 로봇이 무엇을 했는지, 그 다음 알고리즘을 설명합니다.">Show the robot first. Explain the algorithm second.</h2>
       </div>
 
-      <article class="project-card project-featured reveal">
-        <div class="project-meta">
-          <span class="project-index">01</span>
-          <span class="project-state" data-en="PRIMARY SYSTEM · IN PROGRESS" data-ko="메인 시스템 · 진행 중">PRIMARY SYSTEM · IN PROGRESS</span>
+      <article class="capability-card reveal">
+        <div class="capability-copy">
+          <div class="project-meta"><span class="project-index">01</span><span class="project-state">LOCALIZATION</span></div>
+          <h3 data-en="Where am I?" data-ko="로봇은 어디에 있는가?">Where am I?</h3>
+          <p data-en="Localization experiments for a vibration-heavy legged robot using LiDAR and IMU sensing. The project focuses on stable pose estimation, map alignment, TF semantics, and repeatable live/rosbag operation." data-ko="진동이 큰 Legged Robot에서 LiDAR와 IMU를 이용해 안정적인 위치 추정을 수행하는 프로젝트입니다. Pose estimation, map alignment, TF 구조, live/rosbag 재현성을 다룹니다.">Localization experiments for a vibration-heavy legged robot using LiDAR and IMU sensing. The project focuses on stable pose estimation, map alignment, TF semantics, and repeatable live/rosbag operation.</p>
+          <a class="text-link" href="localization.html" data-en="Open localization case study →" data-ko="Localization 상세 보기 →">Open localization case study →</a>
         </div>
-        <div class="project-grid">
-          <div>
-            <h3>RUBI Autonomous Navigation</h3>
-            <p data-en="ROS2 navigation stack for a legged robot: LiDAR/IMU localization, Nav2 planning and control, custom global planning, and LCM command bridging into a low-level learned locomotion policy." data-ko="Legged robot을 위한 ROS2 자율주행 스택입니다. LiDAR/IMU Localization, Nav2 Planning/Control, Custom Global Planning, 그리고 LCM을 통한 Low-level 학습 보행 제어기 연동까지 포함합니다.">ROS2 navigation stack for a legged robot: LiDAR/IMU localization, Nav2 planning and control, custom global planning, and LCM command bridging into a low-level learned locomotion policy.</p>
-            <div class="tag-row">
-              <span>ROS2</span><span>Nav2</span><span>FAST-LIO</span><span>RPP</span><span>LCM</span>
-            </div>
-            <a class="text-link" href="https://github.com/Kimgyoomin/navigation_real/tree/rubi_simulation" target="_blank" rel="noreferrer" data-en="View source context ↗" data-ko="소스 보기 ↗">View source context ↗</a>
-          </div>
-          <div class="mini-architecture" aria-label="RUBI system architecture">
-            <div class="arch-node">Livox + IMU</div><span>↓</span>
-            <div class="arch-node">FAST-LIO / GenZ</div><span>↓</span>
-            <div class="arch-node highlight">Nav2 + Custom Planner</div><span>↓</span>
-            <div class="arch-node">/cmd_vel → LCM</div><span>↓</span>
-            <div class="arch-node">RL Locomotion</div>
-          </div>
+        <div class="media-pair">
+          <div class="media-slot"><span>RVIZ DEMO</span><strong>Localization / Map Alignment</strong><small data-en="Video slot ready" data-ko="영상 삽입 예정">Video slot ready</small></div>
+          <div class="media-slot"><span>ROBOT DEMO</span><strong>Real Sensor Run</strong><small data-en="Video slot ready" data-ko="영상 삽입 예정">Video slot ready</small></div>
         </div>
-        <div class="project-footnote" data-en="Current engineering focus: consistent time-source/TF policy, real-robot validation, and integration of terrain-aware global planning into the navigation stack." data-ko="현재 핵심 작업: Time-source/TF 정책 통일, 실차 검증, Terrain-aware Global Planning의 Navigation stack 통합.">Current engineering focus: consistent time-source/TF policy, real-robot validation, and integration of terrain-aware global planning into the navigation stack.</div>
       </article>
 
-      <div class="project-pair">
-        <article class="project-card reveal">
-          <div class="project-meta"><span class="project-index">02</span><span class="project-state">TERRAIN PLANNING</span></div>
-          <h3>Heightmap Wavefront Planner</h3>
-          <p data-en="A standalone ROS2 terrain-aware global planner over FastDEM elevation maps. It evaluates observed support, local PCA slope/roughness, step discontinuities and unknown regions before constructing a sampled roadmap." data-ko="FastDEM Elevation Map 위에서 동작하는 ROS2 Terrain-aware Global Planner입니다. Observed support, PCA 기반 slope/roughness, step discontinuity, unknown 영역을 평가한 뒤 sampled roadmap을 구성합니다.">A standalone ROS2 terrain-aware global planner over FastDEM elevation maps. It evaluates observed support, local PCA slope/roughness, step discontinuities and unknown regions before constructing a sampled roadmap.</p>
-          <ul class="metric-list">
-            <li><span>Map lattice</span><strong>0.05 m</strong></li>
-            <li><span>Planner modes</span><strong>Wavefront + A* / RRT*</strong></li>
-            <li><span>Validation</span><strong>Unit · Launch · Benchmark</strong></li>
-          </ul>
-          <a class="text-link" href="https://github.com/Kimgyoomin/navigation_real/tree/rubi_simulation/rubi_heightmap_wavefront_planner" target="_blank" rel="noreferrer">View planner ↗</a>
-        </article>
+      <article class="capability-card reveal">
+        <div class="capability-copy">
+          <div class="project-meta"><span class="project-index">02</span><span class="project-state">NAVIGATION</span></div>
+          <h3 data-en="Can the robot reach the goal?" data-ko="로봇이 목표점까지 갈 수 있는가?">Can the robot reach the goal?</h3>
+          <p data-en="An end-to-end navigation pipeline that connects localization, global path generation, path following, velocity commands, and the robot's low-level locomotion controller." data-ko="Localization, Global Path 생성, Path Following, Velocity Command, 그리고 Low-level Locomotion Controller를 연결한 End-to-End Navigation 프로젝트입니다.">An end-to-end navigation pipeline that connects localization, global path generation, path following, velocity commands, and the robot's low-level locomotion controller.</p>
+          <a class="text-link" href="navigation.html" data-en="Open navigation case study →" data-ko="Navigation 상세 보기 →">Open navigation case study →</a>
+        </div>
+        <div class="media-pair">
+          <div class="media-slot"><span>RVIZ DEMO</span><strong>Goal → Path → Tracking</strong><small data-en="Video slot ready" data-ko="영상 삽입 예정">Video slot ready</small></div>
+          <div class="media-slot"><span>ROBOT DEMO</span><strong>Autonomous Motion</strong><small data-en="Video slot ready" data-ko="영상 삽입 예정">Video slot ready</small></div>
+        </div>
+      </article>
 
-        <article class="project-card reveal delay-1">
-          <div class="project-meta"><span class="project-index">03</span><span class="project-state">LOCALIZATION & INTEGRATION</span></div>
-          <h3>Localization Backbone Study</h3>
-          <p data-en="Compared LiDAR-only scan matching and LiDAR-inertial localization for legged navigation. GenZ-ICP is retained as a scan-to-map research path while FAST-LIO is the practical backbone candidate for vibration-heavy real-robot operation." data-ko="Legged robot navigation을 위해 LiDAR-only scan matching과 LiDAR-Inertial Localization을 비교했습니다. GenZ-ICP는 scan-to-map 연구 경로로 유지하고, 실차 backbone은 FAST-LIO 계열을 중심으로 통합하고 있습니다.">Compared LiDAR-only scan matching and LiDAR-inertial localization for legged navigation. GenZ-ICP is retained as a scan-to-map research path while FAST-LIO is the practical backbone candidate for vibration-heavy real-robot operation.</p>
-          <div class="tag-row"><span>TF2</span><span>Odometry</span><span>PointCloud2</span><span>Time Sync</span></div>
-          <p class="small-note" data-en="Engineering emphasis: frame semantics, timestamp policy, live-vs-rosbag reproducibility, and Nav2 transform-chain correctness." data-ko="핵심 엔지니어링 포인트: Frame semantics, timestamp policy, live/rosbag 재현성, Nav2 transform chain 검증.">Engineering emphasis: frame semantics, timestamp policy, live-vs-rosbag reproducibility, and Nav2 transform-chain correctness.</p>
-        </article>
-      </div>
+      <article class="capability-card reveal">
+        <div class="capability-copy">
+          <div class="project-meta"><span class="project-index">03</span><span class="project-state">TERRAIN-AWARE PLANNING</span></div>
+          <h3 data-en="Is the ground actually traversable?" data-ko="이 지형을 실제로 통과할 수 있는가?">Is the ground actually traversable?</h3>
+          <p data-en="A height-map-based planning project for manufacturing terrain. It evaluates slope, roughness, discrete height changes and observed support before constructing a terrain-valid global route." data-ko="제조 환경의 Height Map을 이용해 slope, roughness, 단차, observed support를 평가하고, 실제 통과 가능한 지형 위에서 전역 경로를 생성하는 프로젝트입니다.">A height-map-based planning project for manufacturing terrain. It evaluates slope, roughness, discrete height changes and observed support before constructing a terrain-valid global route.</p>
+          <a class="text-link" href="terrain-planning.html" data-en="Open terrain planning case study →" data-ko="Terrain Planning 상세 보기 →">Open terrain planning case study →</a>
+        </div>
+        <div class="media-pair">
+          <div class="media-slot media-slot-wide"><span>RVIZ / SIMULATION</span><strong>Height Map → Valid Graph → Global Path</strong><small data-en="Video slot ready" data-ko="영상 삽입 예정">Video slot ready</small></div>
+        </div>
+      </article>
     </section>
 
     <section id="system" class="section-shell system-section">
-      <div class="section-heading reveal">
-        <p class="eyebrow" data-en="END-TO-END SYSTEM" data-ko="END-TO-END 시스템">END-TO-END SYSTEM</p>
-        <h2 data-en="One pipeline, from sensing to motion." data-ko="센싱부터 모션까지, 하나의 파이프라인.">One pipeline, from sensing to motion.</h2>
-      </div>
+      <div class="section-heading reveal"><p class="eyebrow" data-en="SYSTEM VIEW" data-ko="시스템 구조">SYSTEM VIEW</p><h2 data-en="Capability first, implementation underneath." data-ko="대표 페이지는 기능 중심, 구현은 세부 페이지에서.">Capability first, implementation underneath.</h2></div>
       <div class="pipeline reveal">
-        <div class="pipeline-step"><span>01</span><strong>Sense</strong><p>Livox LiDAR · IMU</p></div>
-        <div class="pipeline-arrow">→</div>
-        <div class="pipeline-step"><span>02</span><strong>Localize</strong><p>FAST-LIO · GenZ-ICP</p></div>
-        <div class="pipeline-arrow">→</div>
-        <div class="pipeline-step"><span>03</span><strong>Understand</strong><p>FastDEM · Height Map</p></div>
-        <div class="pipeline-arrow">→</div>
-        <div class="pipeline-step"><span>04</span><strong>Plan</strong><p>Wavefront · A* · RRT*</p></div>
-        <div class="pipeline-arrow">→</div>
-        <div class="pipeline-step"><span>05</span><strong>Move</strong><p>Nav2 · LCM · RL Policy</p></div>
+        <div class="pipeline-step"><span>01</span><strong>Sense</strong><p>LiDAR · IMU</p></div><div class="pipeline-arrow">→</div>
+        <div class="pipeline-step"><span>02</span><strong>Localize</strong><p>Pose · Map Alignment</p></div><div class="pipeline-arrow">→</div>
+        <div class="pipeline-step"><span>03</span><strong>Understand</strong><p>Height · Terrain Risk</p></div><div class="pipeline-arrow">→</div>
+        <div class="pipeline-step"><span>04</span><strong>Navigate</strong><p>Plan · Track · Avoid</p></div><div class="pipeline-arrow">→</div>
+        <div class="pipeline-step"><span>05</span><strong>Move</strong><p>Command · Locomotion</p></div>
       </div>
     </section>
 
     <section id="about" class="section-shell about-section">
-      <div class="about-copy reveal">
-        <p class="eyebrow" data-en="ABOUT" data-ko="소개">ABOUT</p>
-        <h2 data-en="I work where robotics algorithms meet real systems." data-ko="로봇 알고리즘과 실제 시스템이 만나는 지점을 다룹니다.">I work where robotics algorithms meet real systems.</h2>
-        <p data-en="My focus is autonomous robot navigation in manufacturing environments: localization, terrain-aware global planning, ROS2/Nav2 integration, and practical debugging across sensors, transforms, time synchronization, controllers, and low-level interfaces." data-ko="제조 환경 자율주행을 중심으로 Localization, Terrain-aware Global Planning, ROS2/Nav2 통합을 연구합니다. 센서, TF, Time synchronization, Controller, Low-level interface 사이에서 발생하는 실제 시스템 문제를 함께 다룹니다.">My focus is autonomous robot navigation in manufacturing environments: localization, terrain-aware global planning, ROS2/Nav2 integration, and practical debugging across sensors, transforms, time synchronization, controllers, and low-level interfaces.</p>
-      </div>
-      <div class="about-facts reveal delay-1">
-        <div><span>FOCUS</span><strong>Autonomous Navigation</strong></div>
-        <div><span>DOMAIN</span><strong>Legged / Manufacturing Robotics</strong></div>
-        <div><span>PLATFORM</span><strong>Ubuntu 22.04 · ROS2 Humble</strong></div>
-        <div><span>LANGUAGE</span><strong>OPIc AL</strong></div>
-      </div>
-    </section>
-
-    <section class="contact-section section-shell reveal">
-      <p class="eyebrow">CONTACT</p>
-      <h2 data-en="Let’s build robots that actually move." data-ko="실제로 움직이는 로봇 시스템을 만들고 싶습니다.">Let’s build robots that actually move.</h2>
-      <div class="hero-actions">
-        <a class="btn btn-primary" href="https://github.com/Kimgyoomin" target="_blank" rel="noreferrer">GitHub ↗</a>
-        <a class="btn btn-ghost" href="https://github.com/Kimgyoomin/navigation_real/tree/rubi_simulation" target="_blank" rel="noreferrer" data-en="Main Project ↗" data-ko="메인 프로젝트 ↗">Main Project ↗</a>
-      </div>
+      <div class="about-copy reveal"><p class="eyebrow" data-en="ABOUT" data-ko="소개">ABOUT</p><h2 data-en="Robotics algorithms are useful only when the whole system works." data-ko="알고리즘 하나보다, 전체 로봇 시스템이 실제로 동작하는 것을 중요하게 생각합니다.">Robotics algorithms are useful only when the whole system works.</h2><p data-en="My work spans localization, navigation, terrain-aware global planning, ROS2 system integration, and practical debugging across sensors, transforms, timing, controllers, and low-level interfaces." data-ko="Localization, Navigation, Terrain-aware Global Planning, ROS2 System Integration을 중심으로 센서, TF, 시간 동기화, Controller, Low-level Interface까지 실제 시스템 문제를 다룹니다.">My work spans localization, navigation, terrain-aware global planning, ROS2 system integration, and practical debugging across sensors, transforms, timing, controllers, and low-level interfaces.</p></div>
+      <div class="about-facts reveal delay-1"><div><span>FOCUS</span><strong>Autonomous Robot Navigation</strong></div><div><span>DOMAIN</span><strong>Legged · Manufacturing Robotics</strong></div><div><span>PLATFORM</span><strong>Ubuntu · ROS2</strong></div><div><span>LANGUAGE</span><strong>OPIc AL</strong></div></div>
     </section>
   </main>
 
-  <footer>
-    <span>© 2026 Gyoomin Kim</span>
-    <span>Built for robotics, not templates.</span>
-  </footer>
-
+  <footer><span>© 2026 Gyoomin Kim</span><span>Robotics · Autonomous Systems</span></footer>
   <script src="script.js"></script>
 </body>
 </html>
