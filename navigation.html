@@ -1,1 +1,95 @@
-<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Navigation · Gyoomin Kim</title><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet"><link rel="stylesheet" href="styles.css"><link rel="stylesheet" href="v2.css"></head><body><canvas id="pointcloud" aria-hidden="true"></canvas><div class="noise" aria-hidden="true"></div><header class="site-header"><a class="brand" href="index.html">GK<span class="brand-dot">.</span></a><nav class="nav"><a href="index.html#projects">Projects</a><a href="localization.html">Localization</a><a href="terrain-planning.html">Terrain</a></nav></header><main class="section-shell case-page"><a class="back-link" href="index.html#projects">← BACK TO PROJECTS</a><section class="case-hero"><div><p class="eyebrow">NAVIGATION</p><h1>Can the robot reach the goal?</h1><p class="case-lead">This project connects localization, path generation, path following, velocity command generation, and the robot command interface into one ROS2 navigation pipeline.</p></div><div class="media-pair"><div class="media-slot case-media"><span>RVIZ DEMO</span><strong>Goal · global path · tracking</strong><small>Replace with curated Nav2/RViz clip</small></div><div class="media-slot case-media"><span>ROBOT DEMO</span><strong>Real robot autonomous motion</strong><small>Replace with curated real-robot clip</small></div></div></section><section class="case-section"><p class="eyebrow">IMPLEMENTATION DETAILS</p><h2>The front page says Navigation. The details explain how.</h2><div class="case-grid"><div class="case-block"><h3>Global Planning</h3><p>A custom ROS2/Nav2 global-planner path generates collision-aware routes on the navigation map. The implementation includes 8-connected search, cost penalties, corner-cut prevention, path reconstruction, smoothing, and heading generation.</p><ul><li>Custom A* plugin</li><li>Costmap-aware route generation</li><li>nav_msgs/Path output</li></ul></div><div class="case-block"><h3>Path Following</h3><p>The navigation stack converts the planned path into robot velocity commands through a path-following controller. The focus is stable forward/yaw motion first, before exploiting full lateral legged-robot mobility.</p><ul><li>Regulated Pure Pursuit</li><li>/cmd_vel generation</li><li>Goal / progress checking</li></ul></div><div class="case-block"><h3>Robot Interface</h3><p>ROS velocity commands are bridged into the robot's LCM command channel and passed to the existing low-level locomotion controller. My work here is the navigation-side command interface and its safety/coordinate handling, not the locomotion policy itself.</p><ul><li>ROS2 → LCM bridge</li><li>Deadman timeout</li><li>Velocity saturation / sign policy</li></ul></div><div class="case-block"><h3>Safety & Integration</h3><p>Manual joystick control and autonomous navigation are separated because both can publish to the same low-level command channel. TF, footprint, inflation, and timestamp consistency are treated as system-level safety conditions.</p></div></div></section></main><script src="script.js"></script></body></html>
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="Gyoomin Kim — autonomous navigation project for a real legged robot." />
+  <title>Navigation · Gyoomin Kim</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css" />
+  <link rel="stylesheet" href="v2.css" />
+</head>
+<body>
+  <canvas id="pointcloud" aria-hidden="true"></canvas><div class="noise" aria-hidden="true"></div>
+  <header class="site-header">
+    <a class="brand" href="index.html">GK<span class="brand-dot">.</span></a>
+    <nav class="nav"><a href="index.html#projects">Projects</a><a href="localization.html">Localization</a><a href="terrain-planning.html">Terrain</a></nav>
+  </header>
+  <main class="section-shell case-page">
+    <a class="back-link" href="index.html#projects">← BACK TO PROJECTS</a>
+
+    <section class="case-hero">
+      <div>
+        <p class="eyebrow">AUTONOMOUS NAVIGATION</p>
+        <h1>Can the robot reach the goal?</h1>
+        <p class="case-lead">This project connects localization, path generation, path following, velocity command generation, and the robot command interface into one ROS2 navigation pipeline for a real legged robot.</p>
+        <div class="tag-row"><span>ROS2</span><span>Nav2</span><span>Global Planning</span><span>Path Following</span><span>Real Robot</span></div>
+      </div>
+      <div>
+        <div class="video-frame hero-video">
+          <video autoplay muted loop playsinline preload="metadata" aria-label="RUBI autonomous navigation with synchronized RViz visualization">
+            <source src="assets/media/navigation_hero_web.mp4" type="video/mp4" />
+            Your browser does not support HTML5 video.
+          </video>
+          <div class="video-caption"><span>REAL ROBOT + RVIZ</span><strong>Autonomous navigation in the test environment</strong></div>
+        </div>
+        <p class="video-note">The physical robot and RViz are shown together so the planned route, localization state, and actual robot motion can be compared directly.</p>
+      </div>
+    </section>
+
+    <section class="case-section">
+      <p class="eyebrow">NAVIGATION EVALUATION</p>
+      <h2>Repeated goals, not a single hand-picked route.</h2>
+      <div class="case-grid">
+        <div>
+          <p class="case-lead">A second condensed clip shows repeated navigation trials with different goal selections. This is used as an engineering validation view rather than as a claim of statistical performance.</p>
+          <div class="case-block">
+            <h3>What the clip demonstrates</h3>
+            <ul>
+              <li>Goal selection followed by autonomous route execution</li>
+              <li>Robot motion and RViz state during repeated trials</li>
+              <li>Navigation behavior across more than one route</li>
+            </ul>
+          </div>
+        </div>
+        <div class="video-frame compact">
+          <video controls muted playsinline preload="metadata" aria-label="Repeated random-goal navigation evaluation">
+            <source src="assets/media/navigation_random_eval_web.mp4" type="video/mp4" />
+            Your browser does not support HTML5 video.
+          </video>
+          <div class="video-caption"><span>REPEATED NAVIGATION TEST</span><strong>Multiple goal selections and runs</strong></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="case-section">
+      <p class="eyebrow">IMPLEMENTATION DETAILS</p>
+      <h2>The front page says Navigation. The details explain how.</h2>
+      <div class="case-grid">
+        <div class="case-block">
+          <h3>Global Planning</h3>
+          <p>A custom ROS2/Nav2 global-planner path generates collision-aware routes on the navigation map. The implementation includes 8-connected search, cost penalties, corner-cut prevention, path reconstruction, smoothing, and heading generation.</p>
+          <ul><li>Custom A* plugin</li><li>Costmap-aware route generation</li><li>nav_msgs/Path output</li></ul>
+        </div>
+        <div class="case-block">
+          <h3>Path Following</h3>
+          <p>The navigation stack converts the planned path into robot velocity commands through a path-following controller. The initial target is stable forward/yaw motion on the real platform.</p>
+          <ul><li>Regulated Pure Pursuit</li><li>/cmd_vel generation</li><li>Goal / progress checking</li></ul>
+        </div>
+        <div class="case-block">
+          <h3>Robot Interface</h3>
+          <p>ROS velocity commands are bridged into the robot's LCM command channel and passed to the existing low-level locomotion controller. My work here is the navigation-side command interface and its safety/coordinate handling, not the locomotion policy itself.</p>
+          <ul><li>ROS2 → LCM bridge</li><li>Deadman timeout</li><li>Velocity saturation / sign policy</li></ul>
+        </div>
+        <div class="case-block">
+          <h3>Safety & Integration</h3>
+          <p>Manual joystick control and autonomous navigation are separated because both can publish to the same low-level command channel. TF, footprint, inflation, timestamp consistency, and command ownership are treated as system-level safety conditions.</p>
+        </div>
+      </div>
+    </section>
+  </main>
+  <script src="script.js"></script>
+</body>
+</html>
