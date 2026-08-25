@@ -90,34 +90,11 @@
         <p class="eyebrow" data-en="TECHNICAL FOCUS" data-ko="TECHNICAL FOCUS">TECHNICAL FOCUS</p>
         <h2 data-en="One core field, supported by the systems around it." data-ko="하나의 핵심 분야와, 그것을 실제로 동작하게 만드는 주변 시스템.">One core field, supported by the systems around it.</h2>
       </div>
-
       <div class="project-pair">
-        <article class="project-card reveal">
-          <div class="project-meta"><span class="project-index">01</span><span class="project-state">PRIMARY</span></div>
-          <h3>Path Planning & Navigation</h3>
-          <p data-en="Global route generation, graph search, sampling-based planning, path following, costmaps, and the interfaces required to turn a planned route into robot motion." data-ko="Global Route Generation, Graph Search, Sampling-based Planning, Path Following, Costmap 그리고 계획된 경로를 실제 로봇 움직임으로 연결하는 인터페이스를 다룹니다.">Global route generation, graph search, sampling-based planning, path following, costmaps, and the interfaces required to turn a planned route into robot motion.</p>
-          <a class="text-link" href="navigation.html" data-en="Explore Navigation →" data-ko="Navigation 자세히 보기 →">Explore Navigation →</a>
-        </article>
-
-        <article class="project-card reveal delay-1">
-          <div class="project-meta"><span class="project-index">02</span><span class="project-state">SUPPORTING</span></div>
-          <h3>Localization</h3>
-          <p data-en="Reliable navigation depends on a reliable robot pose. I integrate and evaluate localization pipelines with attention to frame semantics, timestamps, map alignment, and real-robot behavior." data-ko="신뢰할 수 있는 Navigation은 신뢰할 수 있는 Robot Pose에서 시작합니다. Frame semantics, timestamp, map alignment, 실차 거동을 중심으로 Localization pipeline을 통합하고 평가합니다.">Reliable navigation depends on a reliable robot pose. I integrate and evaluate localization pipelines with attention to frame semantics, timestamps, map alignment, and real-robot behavior.</p>
-          <a class="text-link" href="localization.html" data-en="Explore Localization →" data-ko="Localization 자세히 보기 →">Explore Localization →</a>
-        </article>
-
-        <article class="project-card reveal">
-          <div class="project-meta"><span class="project-index">03</span><span class="project-state">SUPPORTING</span></div>
-          <h3>Terrain-aware Planning</h3>
-          <p data-en="For uneven indoor environments, I extend global planning beyond 2D occupancy by using elevation, slope, roughness, step discontinuity, and observed support as planning constraints and costs." data-ko="평면 Occupancy를 넘어 Elevation, Slope, Roughness, Step Discontinuity, Observed Support를 Planning Constraint와 Cost로 활용하는 지형 기반 경로 생성을 연구합니다.">For uneven indoor environments, I extend global planning beyond 2D occupancy by using elevation, slope, roughness, step discontinuity, and observed support as planning constraints and costs.</p>
-          <a class="text-link" href="terrain-planning.html" data-en="Explore Terrain Planning →" data-ko="Terrain Planning 자세히 보기 →">Explore Terrain Planning →</a>
-        </article>
-
-        <article class="project-card reveal delay-1">
-          <div class="project-meta"><span class="project-index">04</span><span class="project-state">ENGINEERING</span></div>
-          <h3>Robot System Integration</h3>
-          <p data-en="ROS2 nodes, TF trees, sensor topics, Nav2 interfaces, command bridges, live-vs-rosbag timing, and debugging across high-level navigation and low-level robot control." data-ko="ROS2 Node, TF Tree, Sensor Topic, Nav2 Interface, Command Bridge, Live/Rosbag Timing 그리고 High-level Navigation과 Low-level Control 사이의 통합 문제를 다룹니다.">ROS2 nodes, TF trees, sensor topics, Nav2 interfaces, command bridges, live-vs-rosbag timing, and debugging across high-level navigation and low-level robot control.</p>
-        </article>
+        <article class="project-card reveal"><div class="project-meta"><span class="project-index">01</span><span class="project-state">PRIMARY</span></div><h3>Path Planning & Navigation</h3><p>Global route generation, graph search, sampling-based planning, path following, costmaps, and the interfaces required to turn a planned route into robot motion.</p><a class="text-link" href="navigation.html">Explore Navigation →</a></article>
+        <article class="project-card reveal delay-1"><div class="project-meta"><span class="project-index">02</span><span class="project-state">SUPPORTING</span></div><h3>Localization</h3><p>Reliable navigation depends on a reliable robot pose. I integrate and evaluate localization pipelines with attention to frame semantics, timestamps, map alignment, and real-robot behavior.</p><a class="text-link" href="localization.html">Explore Localization →</a></article>
+        <article class="project-card reveal"><div class="project-meta"><span class="project-index">03</span><span class="project-state">SUPPORTING</span></div><h3>Terrain-aware Planning</h3><p>I extend global planning beyond 2D occupancy by using elevation, slope, roughness, step discontinuity, and observed support as planning constraints and costs.</p><a class="text-link" href="terrain-planning.html">Explore Terrain Planning →</a></article>
+        <article class="project-card reveal delay-1"><div class="project-meta"><span class="project-index">04</span><span class="project-state">ENGINEERING</span></div><h3>Robot System Integration</h3><p>ROS2 nodes, TF trees, sensor topics, Nav2 interfaces, command bridges, live-vs-rosbag timing, and debugging across high-level navigation and low-level robot control.</p></article>
       </div>
     </section>
 
@@ -136,7 +113,13 @@
             <div class="tag-row"><span>ROS2</span><span>Navigation</span><span>Localization</span><span>Real Robot</span><span>System Integration</span></div>
             <a class="text-link" href="navigation.html" data-en="View project details →" data-ko="프로젝트 자세히 보기 →">View project details →</a>
           </div>
-          <div class="media-slot case-media"><span>REAL ROBOT / RVIZ</span><strong>Navigation demo slot</strong><small>Robot + RViz clip will be added here</small></div>
+          <div class="video-frame hero-video">
+            <video autoplay muted loop playsinline preload="metadata" aria-label="RUBI autonomous navigation with RViz">
+              <source src="assets/media/navigation_hero_web.mp4" type="video/mp4" />
+              Your browser does not support HTML5 video.
+            </video>
+            <div class="video-caption"><span>REAL ROBOT + RVIZ</span><strong>Autonomous navigation demo</strong></div>
+          </div>
         </div>
       </article>
 
@@ -144,54 +127,35 @@
         <article class="project-card reveal">
           <div class="project-meta"><span class="project-index">02</span><span class="project-state">GLOBAL PLANNING</span></div>
           <h3>Terrain-aware Global Planning</h3>
-          <p data-en="A planning prototype that uses a 2.5D elevation map to distinguish feasible and risky terrain before building a global route. It is designed for indoor environments where flat floor and low height discontinuities coexist." data-ko="2.5D Elevation Map을 이용해 이동 가능한 지형과 위험 지형을 구분한 뒤 Global Route를 생성하는 Planning Prototype입니다. 평지와 낮은 단차가 혼재하는 실내 환경을 대상으로 합니다.">A planning prototype that uses a 2.5D elevation map to distinguish feasible and risky terrain before building a global route. It is designed for indoor environments where flat floor and low height discontinuities coexist.</p>
-          <div class="media-slot"><span>RVIZ</span><strong>Height map · graph · path</strong><small>Wavefront / RRT* comparison clip will be added here</small></div>
-          <a class="text-link" href="terrain-planning.html" data-en="View project details →" data-ko="프로젝트 자세히 보기 →">View project details →</a>
+          <p>A planning prototype that uses a 2.5D elevation map to distinguish feasible and risky terrain before building a global route.</p>
+          <div class="media-slot"><span>RVIZ</span><strong>Height map · graph · path</strong><small>Terrain-planning media will be added next</small></div>
+          <a class="text-link" href="terrain-planning.html">View project details →</a>
         </article>
-
         <article class="project-card reveal delay-1">
           <div class="project-meta"><span class="project-index">03</span><span class="project-state">LOCALIZATION</span></div>
           <h3>Localization Integration & Evaluation</h3>
-          <p data-en="A practical study of localization choices for legged navigation, including map alignment, LiDAR-only and LiDAR-inertial approaches, TF structure, timestamps, and how localization quality affects the navigation stack." data-ko="Legged Navigation에서 Localization 선택과 통합을 다룬 실험입니다. Map Alignment, LiDAR-only / LiDAR-Inertial 접근, TF Structure, Timestamp 그리고 Localization 품질이 Navigation Stack에 미치는 영향을 확인합니다.">A practical study of localization choices for legged navigation, including map alignment, LiDAR-only and LiDAR-inertial approaches, TF structure, timestamps, and how localization quality affects the navigation stack.</p>
-          <div class="media-slot"><span>RVIZ</span><strong>Map alignment · trajectory</strong><small>Localization comparison clip will be added here</small></div>
-          <a class="text-link" href="localization.html" data-en="View project details →" data-ko="프로젝트 자세히 보기 →">View project details →</a>
+          <p>A practical study of localization choices for legged navigation, including map alignment, LiDAR-only and LiDAR-inertial approaches, TF structure, timestamps, and navigation-stack behavior.</p>
+          <div class="media-slot"><span>RVIZ</span><strong>Map alignment · trajectory</strong><small>Localization media will be added next</small></div>
+          <a class="text-link" href="localization.html">View project details →</a>
         </article>
       </div>
     </section>
 
     <section id="experience" class="section-shell system-section">
-      <div class="section-heading reveal">
-        <p class="eyebrow" data-en="ENGINEERING APPROACH" data-ko="ENGINEERING APPROACH">ENGINEERING APPROACH</p>
-        <h2 data-en="A planner is useful only when the whole stack agrees." data-ko="Planner는 전체 Stack이 함께 맞아야 실제로 의미가 있습니다.">A planner is useful only when the whole stack agrees.</h2>
-      </div>
+      <div class="section-heading reveal"><p class="eyebrow">ENGINEERING APPROACH</p><h2>A planner is useful only when the whole stack agrees.</h2></div>
       <div class="pipeline reveal">
-        <div class="pipeline-step"><span>01</span><strong>Sense</strong><p>LiDAR · IMU</p></div>
-        <div class="pipeline-arrow">→</div>
-        <div class="pipeline-step"><span>02</span><strong>Localize</strong><p>Pose · Map alignment</p></div>
-        <div class="pipeline-arrow">→</div>
-        <div class="pipeline-step"><span>03</span><strong>Plan</strong><p>Global route · Terrain cost</p></div>
-        <div class="pipeline-arrow">→</div>
-        <div class="pipeline-step"><span>04</span><strong>Navigate</strong><p>Path following · Costmap</p></div>
-        <div class="pipeline-arrow">→</div>
+        <div class="pipeline-step"><span>01</span><strong>Sense</strong><p>LiDAR · IMU</p></div><div class="pipeline-arrow">→</div>
+        <div class="pipeline-step"><span>02</span><strong>Localize</strong><p>Pose · Map alignment</p></div><div class="pipeline-arrow">→</div>
+        <div class="pipeline-step"><span>03</span><strong>Plan</strong><p>Global route · Terrain cost</p></div><div class="pipeline-arrow">→</div>
+        <div class="pipeline-step"><span>04</span><strong>Navigate</strong><p>Path following · Costmap</p></div><div class="pipeline-arrow">→</div>
         <div class="pipeline-step"><span>05</span><strong>Integrate</strong><p>ROS2 · TF · Robot command</p></div>
       </div>
     </section>
 
-    <section class="contact-section section-shell reveal">
-      <p class="eyebrow">CONTACT</p>
-      <h2 data-en="Interested in path planning, autonomous navigation, and robotics systems." data-ko="Path Planning, Autonomous Navigation, Robotics System 분야에 관심이 있습니다.">Interested in path planning, autonomous navigation, and robotics systems.</h2>
-      <div class="hero-actions">
-        <a class="btn btn-primary" href="https://github.com/Kimgyoomin" target="_blank" rel="noreferrer">GitHub ↗</a>
-        <a class="btn btn-ghost" href="https://github.com/Kimgyoomin/navigation_real/tree/rubi_simulation" target="_blank" rel="noreferrer" data-en="Research Project ↗" data-ko="연구 프로젝트 ↗">Research Project ↗</a>
-      </div>
-    </section>
+    <section class="contact-section section-shell reveal"><p class="eyebrow">CONTACT</p><h2>Interested in path planning, autonomous navigation, and robotics systems.</h2><div class="hero-actions"><a class="btn btn-primary" href="https://github.com/Kimgyoomin" target="_blank" rel="noreferrer">GitHub ↗</a><a class="btn btn-ghost" href="https://github.com/Kimgyoomin/navigation_real/tree/rubi_simulation" target="_blank" rel="noreferrer">Research Project ↗</a></div></section>
   </main>
 
-  <footer>
-    <span>© 2026 Gyoomin Kim</span>
-    <span>Path Planning · Autonomous Navigation · Real Robots</span>
-  </footer>
-
+  <footer><span>© 2026 Gyoomin Kim</span><span>Path Planning · Autonomous Navigation · Real Robots</span></footer>
   <script src="script.js"></script>
 </body>
 </html>
