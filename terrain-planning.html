@@ -1,1 +1,155 @@
-<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Terrain Planning · Gyoomin Kim</title><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet"><link rel="stylesheet" href="styles.css"><link rel="stylesheet" href="v2.css"></head><body><canvas id="pointcloud" aria-hidden="true"></canvas><div class="noise" aria-hidden="true"></div><header class="site-header"><a class="brand" href="index.html">GK<span class="brand-dot">.</span></a><nav class="nav"><a href="index.html#projects">Projects</a><a href="localization.html">Localization</a><a href="navigation.html">Navigation</a></nav></header><main class="section-shell case-page"><a class="back-link" href="index.html#projects">← BACK TO PROJECTS</a><section class="case-hero"><div><p class="eyebrow">TERRAIN-AWARE PLANNING</p><h1>Is the ground actually traversable?</h1><p class="case-lead">The terrain-planning project turns a 2.5D elevation map into a graph that rejects unsupported, steep, rough, or discontinuous terrain before searching for a global route.</p></div><div class="media-slot case-media"><span>RVIZ / SIMULATION</span><strong>Height map · sampled graph · rejected terrain · final path</strong><small>Replace with curated WavePlanner clip</small></div></section><section class="case-section"><p class="eyebrow">IMPLEMENTATION DETAILS</p><h2>Terrain interpretation first. Search second.</h2><div class="case-grid"><div class="case-block"><h3>Terrain Evaluation</h3><p>FastDEM elevation cells are reconstructed as a regular terrain snapshot. Local surface geometry is evaluated before a node or edge is accepted.</p><ul><li>5 cm elevation lattice</li><li>PCA slope / roughness</li><li>Observed-support checks</li><li>Explicit adjacent-height step checks</li></ul></div><div class="case-block"><h3>Wavefront Roadmap + A*</h3><p>A deterministic sampled roadmap expands around accepted nodes, validates candidate edges against terrain constraints, connects nearby valid nodes, and then searches the graph using a terrain-aware cost.</p><ul><li>Ring-based proposals</li><li>Node merging / loop edges</li><li>Risk-aware A*</li></ul></div><div class="case-block"><h3>RRT* Comparison</h3><p>A separate RRT* mode provides a sampling-based comparison under the same terrain evaluator and map contract.</p><ul><li>Nearest → steer</li><li>Choose parent</li><li>Rewire</li><li>Deterministic seed option</li></ul></div><div class="case-block"><h3>Lifecycle & Revalidation</h3><p>Changed height maps recheck the remaining active-path corridor. Invalid paths are cleared and one automatic replan is coalesced while stale planning results are prevented from overwriting newer state.</p></div></div></section><section class="case-section"><p class="eyebrow">CURRENT LIMITS</p><h2>Prototype, not a safety claim.</h2><div class="case-grid"><div class="case-block"><h3>Not yet robot-calibrated</h3><p>Current slope and step thresholds are software bootstrap values. Physical experiments still need to establish reliable step-up/down, forward-slope, cross-slope, and support limits for RUBI.</p></div><div class="case-block"><h3>Global planning scope</h3><p>The current terrain planner outputs a global path. Dynamic-obstacle stopping and local safety remain separate controller/local-planning responsibilities.</p></div></div></section></main><script src="script.js"></script></body></html>
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="Interactive Terrain Mapping and Planning portfolio case study by Gyoomin Kim." />
+  <title>Interactive Terrain Planning · Gyoomin Kim</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+  <link rel="stylesheet" href="v2.css" />
+  <link rel="stylesheet" href="terrain-playground.css" />
+</head>
+<body>
+  <canvas id="pointcloud" aria-hidden="true"></canvas>
+  <div class="noise" aria-hidden="true"></div>
+
+  <header class="site-header">
+    <a class="brand" href="index.html">GK<span class="brand-dot">.</span></a>
+    <nav class="nav" aria-label="Case-study navigation">
+      <a href="index.html#projects">Projects</a>
+      <a href="localization.html">Localization</a>
+      <a href="navigation.html">Navigation</a>
+    </nav>
+  </header>
+
+  <main class="section-shell case-page">
+    <a class="back-link" href="index.html#projects">← BACK TO PROJECTS</a>
+
+    <section class="case-hero case-hero-stacked">
+      <div class="case-intro">
+        <p class="eyebrow">INTERACTIVE TERRAIN MAPPING &amp; PLANNING</p>
+        <h1>What makes a path traversable?</h1>
+        <p class="case-lead">Explore the terrain layers, place a start and goal, change the slope and step limits, and watch a Wavefront roadmap expand before terrain-aware A* extracts the final route.</p>
+      </div>
+    </section>
+
+    <section class="case-section terrain-playground-section" id="playground">
+      <div class="section-heading">
+        <p class="eyebrow">TRY THE PLANNER</p>
+        <h2>Layer Explorer + interactive start/goal planning.</h2>
+      </div>
+
+      <div class="playground-shell">
+        <div class="playground-toolbar">
+          <div class="playground-toolbar-group">
+            <span class="playground-toolbar-label">Layer Explorer</span>
+            <div class="segmented-control" aria-label="Terrain layer">
+              <button type="button" data-terrain-layer="height">Height</button>
+              <button type="button" data-terrain-layer="slope">Slope</button>
+              <button type="button" data-terrain-layer="roughness">Roughness</button>
+              <button type="button" data-terrain-layer="step">Step</button>
+              <button type="button" class="active" data-terrain-layer="traversability">Traversability</button>
+            </div>
+          </div>
+
+          <div class="playground-toolbar-group">
+            <span class="playground-toolbar-label">Canvas Tool</span>
+            <div class="segmented-control" aria-label="Canvas interaction tool">
+              <button type="button" data-terrain-tool="start">Set Start</button>
+              <button type="button" data-terrain-tool="goal">Set Goal</button>
+              <button type="button" class="active" data-terrain-tool="inspect">Inspect</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="playground-layout">
+          <div class="terrain-canvas-column">
+            <div class="terrain-canvas-wrap">
+              <canvas id="terrainCanvas" aria-label="Interactive synthetic terrain map and planner visualization"></canvas>
+              <div class="interaction-hint" id="interactionHint">Click any cell to inspect terrain metrics and rejection reason.</div>
+            </div>
+            <div class="layer-legend" id="layerLegend"></div>
+          </div>
+
+          <aside class="planner-panel" aria-label="Planner controls and diagnostics">
+            <section class="planner-panel-section">
+              <span class="planner-panel-label">Terrain Gates</span>
+              <div class="planner-control-row">
+                <label for="slopeLimit">Max slope</label>
+                <output id="slopeLimitValue" for="slopeLimit">15°</output>
+                <input id="slopeLimit" type="range" min="8" max="25" step="1" value="15" />
+              </div>
+              <div class="planner-control-row">
+                <label for="stepLimit">Max step</label>
+                <output id="stepLimitValue" for="stepLimit">8 cm</output>
+                <input id="stepLimit" type="range" min="4" max="14" step="1" value="8" />
+              </div>
+              <div class="toggle-row"><label for="showGraph">Show accepted graph</label><input id="showGraph" type="checkbox" checked /></div>
+              <div class="toggle-row"><label for="showRejected">Show rejected proposals</label><input id="showRejected" type="checkbox" checked /></div>
+            </section>
+
+            <section class="planner-panel-section">
+              <span class="planner-panel-label">Plan</span>
+              <div class="playground-button-row">
+                <button class="playground-action" id="runPlanner" type="button">Run planner</button>
+                <button class="playground-secondary" id="resetPlanner" type="button">Reset</button>
+              </div>
+              <span class="plan-status" id="planStatus" data-state="success">PATH FOUND</span>
+              <p class="planner-description" id="plannerDescription"></p>
+              <div class="plan-metrics" id="planMetrics"></div>
+            </section>
+
+            <section class="planner-panel-section terrain-inspector" id="terrainInspector">
+              <span class="planner-panel-label">Terrain Inspector</span>
+              <p>Select <strong>Inspect</strong> and click a cell.</p>
+            </section>
+          </aside>
+        </div>
+      </div>
+
+      <p class="playground-disclaimer"><strong>Scope:</strong> this is a deterministic browser demonstrator of the V0 planning contracts and baseline parameters over a synthetic terrain. It ports the terrain gates, Wavefront ring expansion, merge/neighbor radii, edge sampling precedence, slope-risk edge cost, and graph A* behavior for explanation. For browser responsiveness, the synthetic layer explorer uses local finite-difference proxies for slope and roughness; the authoritative ROS2 C++ implementation estimates these surfaces with local PCA. It does not execute the ROS2 node, consume live FastDEM data, or claim robot-calibrated limits.</p>
+    </section>
+
+    <section class="case-section">
+      <p class="eyebrow">V0 CONTRACT REPRESENTED IN THE DEMO</p>
+      <h2>Same planning ideas, made inspectable.</h2>
+      <div class="algorithm-contract">
+        <div><span>MAP</span><strong>0.05 m</strong><small>Regular elevation lattice interpreted from FastDEM output.</small></div>
+        <div><span>TERRAIN GATES</span><strong>15° / 8 cm</strong><small>Slope and consecutive height-step bootstrap thresholds.</small></div>
+        <div><span>WAVEFRONT</span><strong>0.30 m · 20</strong><small>Proposal ring radius and directions evaluated per expansion.</small></div>
+        <div><span>GRAPH</span><strong>0.20 / 0.45 m</strong><small>Merge radius and valid neighbor-connection radius.</small></div>
+        <div><span>EDGE CHECK</span><strong>0.025 m</strong><small>Half-cell sampling with bounds → unknown → step precedence.</small></div>
+        <div><span>COST</span><strong>d · (1 + 3r)</strong><small>3D edge distance with normalized slope risk.</small></div>
+        <div><span>SEARCH</span><strong>A*</strong><small>Search over accepted graph edges after terrain validation.</small></div>
+        <div><span>ROUGHNESS</span><strong>Layer only</strong><small>Visualized for analysis; the V0 hard gate is disabled.</small></div>
+      </div>
+    </section>
+
+    <section class="case-section">
+      <p class="eyebrow">IMPLEMENTATION DETAILS</p>
+      <h2>Terrain interpretation first. Search second.</h2>
+      <div class="case-grid">
+        <div class="case-block"><h3>Terrain Evaluation</h3><p>FastDEM elevation cells are reconstructed as a regular terrain snapshot. Local surface geometry is evaluated before a node or edge is accepted.</p><ul><li>5 cm elevation lattice</li><li>PCA slope / roughness in the ROS2 implementation</li><li>Strict observed-support checks</li><li>Explicit consecutive-height step checks</li></ul></div>
+        <div class="case-block"><h3>Wavefront Roadmap + A*</h3><p>A deterministic FIFO roadmap expands ring proposals around accepted nodes, validates each candidate and edge, merges nearby samples, creates loop edges, and connects the goal before A* searches the accepted graph.</p></div>
+        <div class="case-block"><h3>RRT* Comparison</h3><p>The ROS2 package also contains a separate RRT* mode using nearest → steer → choose-parent → insert → rewire under the same TerrainEvaluator contract. The interactive V1 focuses on the default Wavefront mode.</p></div>
+        <div class="case-block"><h3>Lifecycle &amp; Revalidation</h3><p>Changed height maps recheck the active path corridor. Confirmed invalid paths are cleared and replanned while stale results are prevented from replacing newer state.</p></div>
+      </div>
+    </section>
+
+    <section class="case-section">
+      <p class="eyebrow">CURRENT LIMITS</p>
+      <h2>Prototype, not a safety claim.</h2>
+      <div class="case-grid">
+        <div class="case-block"><h3>Not robot-calibrated yet</h3><p>The 15° slope and 8 cm step values are software bootstrap thresholds. Physical experiments are still required for reliable step-up/down, forward-slope, cross-slope, and support limits of RUBI.</p></div>
+        <div class="case-block"><h3>Browser demo vs. ROS2 runtime</h3><p>The interaction is intentionally explanatory. The authoritative implementation remains the C++ ROS2 package, its tests, and real FastDEM/RViz experiments. A future version can replay exported planner snapshots or run the core through WebAssembly.</p></div>
+      </div>
+    </section>
+  </main>
+
+  <script src="script.js"></script>
+  <script src="terrain-playground.js"></script>
+</body>
+</html>
