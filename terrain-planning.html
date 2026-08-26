@@ -11,6 +11,14 @@
   <link rel="stylesheet" href="styles.css" />
   <link rel="stylesheet" href="v2.css" />
   <link rel="stylesheet" href="terrain-playground.css" />
+  <script type="importmap">
+    {
+      "imports": {
+        "three": "https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js",
+        "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/"
+      }
+    }
+  </script>
 </head>
 <body>
   <canvas id="pointcloud" aria-hidden="true"></canvas>
@@ -32,14 +40,14 @@
       <div class="case-intro">
         <p class="eyebrow">INTERACTIVE TERRAIN MAPPING &amp; PLANNING</p>
         <h1>What makes a path traversable?</h1>
-        <p class="case-lead">Explore the terrain layers, place a start and goal, change the slope and step limits, and watch a Wavefront roadmap expand before terrain-aware A* extracts the final route.</p>
+        <p class="case-lead">Explore the terrain in 3D first, then use the BEV planner to place a start and goal, change the slope and step limits, and watch a Wavefront roadmap expand before terrain-aware A* extracts the final route.</p>
       </div>
     </section>
 
     <section class="case-section terrain-playground-section" id="playground">
       <div class="section-heading">
         <p class="eyebrow">TRY THE PLANNER</p>
-        <h2>Layer Explorer + interactive start/goal planning.</h2>
+        <h2>See the terrain geometry, then plan across it.</h2>
       </div>
 
       <div class="playground-shell">
@@ -56,12 +64,43 @@
           </div>
 
           <div class="playground-toolbar-group">
-            <span class="playground-toolbar-label">Canvas Tool</span>
+            <span class="playground-toolbar-label">BEV Canvas Tool</span>
             <div class="segmented-control" aria-label="Canvas interaction tool">
               <button type="button" data-terrain-tool="start">Set Start</button>
               <button type="button" data-terrain-tool="goal">Set Goal</button>
               <button type="button" class="active" data-terrain-tool="inspect">Inspect</button>
             </div>
+          </div>
+        </div>
+
+        <section class="terrain-3d-block" aria-labelledby="terrain3DHeading">
+          <div class="terrain-view-heading">
+            <div>
+              <span class="playground-toolbar-label">3D Terrain Scene</span>
+              <strong id="terrain3DHeading">Height, slope, and step as physical geometry</strong>
+            </div>
+            <div class="terrain-3d-actions" aria-label="3D scene controls">
+              <button type="button" data-z-scale="1">Z ×1</button>
+              <button type="button" class="active" data-z-scale="3">Z ×3</button>
+              <button type="button" id="reset3DView">Reset view</button>
+            </div>
+          </div>
+
+          <div class="terrain-3d-view" id="terrain3D" aria-label="Interactive 3D synthetic terrain scene">
+            <div class="terrain-3d-loading" id="terrain3DLoading">Loading 3D terrain…</div>
+            <div class="terrain-3d-hud" id="terrain3DInfo" aria-live="polite">
+              <span>CLICK TERRAIN TO INSPECT</span>
+              <strong>Drag to orbit · scroll to zoom</strong>
+            </div>
+            <div class="terrain-3d-scale-note" id="terrain3DScaleNote">Z ×3 VISUAL SCALE</div>
+          </div>
+          <p class="terrain-view-note">This scene uses the same deterministic synthetic height field as the BEV planner below. The default Z ×3 mode exaggerates vertical geometry only for readability; switch to Z ×1 for true relative scale. The layer buttons and terrain-gate sliders update both views.</p>
+        </section>
+
+        <div class="terrain-view-heading terrain-bev-heading">
+          <div>
+            <span class="playground-toolbar-label">BEV Planning Map</span>
+            <strong>Start / goal placement + roadmap / path visualization</strong>
           </div>
         </div>
 
@@ -110,7 +149,7 @@
         </div>
       </div>
 
-      <p class="playground-disclaimer"><strong>Scope:</strong> this is a deterministic browser demonstrator of the V0 planning contracts and baseline parameters over a synthetic terrain. It ports the terrain gates, Wavefront ring expansion, merge/neighbor radii, edge sampling precedence, slope-risk edge cost, and graph A* behavior for explanation. For browser responsiveness, the synthetic layer explorer uses local finite-difference proxies for slope and roughness; the authoritative ROS2 C++ implementation estimates these surfaces with local PCA. It does not execute the ROS2 node, consume live FastDEM data, or claim robot-calibrated limits.</p>
+      <p class="playground-disclaimer"><strong>Scope:</strong> this is a deterministic browser demonstrator of the V0 planning contracts and baseline parameters over a synthetic terrain. It ports the terrain gates, Wavefront ring expansion, merge/neighbor radii, edge sampling precedence, slope-risk edge cost, and graph A* behavior for explanation. For browser responsiveness, the synthetic layer explorer uses local finite-difference proxies for slope and roughness; the authoritative ROS2 C++ implementation estimates these surfaces with local PCA. The 3D viewer visualizes that same synthetic elevation field and does not represent robot dynamics. It does not execute the ROS2 node, consume live FastDEM data, or claim robot-calibrated limits.</p>
     </section>
 
     <section class="case-section">
@@ -151,5 +190,6 @@
 
   <script src="script.js"></script>
   <script src="terrain-playground.js"></script>
+  <script type="module" src="terrain-3d.js"></script>
 </body>
 </html>
